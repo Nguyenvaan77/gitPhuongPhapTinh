@@ -13,15 +13,14 @@ def main():
     # Vẽ spline tự nhiên
     plot_spline(x, y, a, b, c, d)
 
-    # Vẽ hàm f(x) từ x = -10 đến 10 và số điểm làm mượt là 100
-    plot_function(f, -10 , 10 ,num_points=100)
+    # Vẽ hàm gốc f(x) từ x = -10 đến 10 và số điểm làm mượt là 100
+    plot_function(f, -4 ,4 ,num_points=1000, title="Hàm gốc f(x)")
 
     # Vẽ sai số tuyệt đối
     plot_absolute_error(f, x, a, b, c, d, num_points=500,)
 
     #Vẽ sai số bình phương
     plot_squared_error(f, x, a, b, c, d, num_points=500)
-
 
 if __name__ == '__main__':
     main()

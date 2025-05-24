@@ -94,3 +94,27 @@ def compute_mae(f, x_data, a, b, c, d, num_points=500):
         errors.append(abs(f(x) - s_val))
     mae = np.mean(errors)
     return mae
+
+# Tính trung bình sai số bình phương (MSE)
+def compute_mse(f, x_data, a, b, c, d, num_points=500):
+    """
+    Tính trung bình sai số bình phương (MSE) giữa f và spline S trên dải từ min đến max của x_data.
+    
+    Tham số:
+    - f: hàm gốc (callable)
+    - x_data: mảng hoặc list điểm mốc spline
+    - a, b, c, d: hệ số spline từng đoạn
+    - num_points: số điểm lấy mẫu để tính sai số
+    
+    Trả về:
+    - mse: giá trị trung bình sai số bình phương
+    """
+    x_vals = np.linspace(min(x_data), max(x_data), num_points)
+    errors = []
+    for x in x_vals:
+        s_val = eval_spline(x_data, a, b, c, d, x)
+        if s_val is None:
+            continue  # bỏ qua điểm ngoài miền
+        errors.append((f(x) - s_val)**2)
+    mse = np.mean(errors)
+    return mse

@@ -46,15 +46,16 @@ def plot_function(f, x_min, x_max, num_points=500, title="Đồ thị hàm gốc
 
 # Vẽ sai số tuyệt đối
 def plot_absolute_error(f, x_data, a, b, c, d, num_points=500, title="Absolute Error of Spline"):
-    """
-    Vẽ đồ thị sai số tuyệt đối |f(x) - S(x)| trên dải từ min đến max của x_data.
-    f: hàm gốc (callable)
-    num_points: số điểm lấy mẫu để tính sai số
-    """
-    x_vals, errors = compute_absolute_error(f, x_data, a, b, c, d, num_points=500)
+    x_vals, errors = compute_absolute_error(f, x_data, a, b, c, d, num_points=num_points)
+    mae = np.mean(errors)
+    max_err = np.max(errors)
+    min_err = np.min(errors)
 
     plt.figure(figsize=(8,5))
     plt.plot(x_vals[:len(errors)], errors, label="Absolute Error")
+    plt.axhline(y=mae, color='r', linestyle='--', label=f'Mean (MAE) = {mae:.4f}')
+    plt.axhline(y=max_err, color='g', linestyle=':', label=f'Max = {max_err:.4f}')
+    plt.axhline(y=min_err, color='b', linestyle='-.', label=f'Min = {min_err:.4f}')
     plt.title(title)
     plt.xlabel("x")
     plt.ylabel("Sai số tuyệt đối")
@@ -63,16 +64,18 @@ def plot_absolute_error(f, x_data, a, b, c, d, num_points=500, title="Absolute E
     plt.tight_layout()
     plt.show()
 
+# Vẽ sai số bình phương
 def plot_squared_error(f, x_data, a, b, c, d, num_points=500, title="Squared Error of Spline"):
-    """
-    Vẽ đồ thị sai số bình phương (f(x) - S(x))^2 trên dải từ min đến max của x_data.
-    f: hàm gốc (callable)
-    num_points: số điểm lấy mẫu để tính sai số
-    """
     x_vals, errors = compute_squared_error(f, x_data, a, b, c, d, num_points=num_points)
+    mse = np.mean(errors)
+    max_err = np.max(errors)
+    min_err = np.min(errors)
 
     plt.figure(figsize=(8,5))
     plt.plot(x_vals[:len(errors)], errors, label="Squared Error")
+    plt.axhline(y=mse, color='r', linestyle='--', label=f'Mean (MSE) = {mse:.4f}')
+    plt.axhline(y=max_err, color='g', linestyle=':', label=f'Max = {max_err:.4f}')
+    plt.axhline(y=min_err, color='b', linestyle='-.', label=f'Min = {min_err:.4f}')
     plt.title(title)
     plt.xlabel("x")
     plt.ylabel("Sai số bình phương")

@@ -26,12 +26,12 @@ def get_random_data():
 
 # Lấy giữ liệu mẫu từ hàm gốc
 def get_f_data():
-    f = lambda x: 2*x**4 - 5*x**2 + 3*x - 7
+    f = lambda x: x**3 - 3*x**2 + 2
     # Lấy 10 điểm từ -10 đến 10
-    x = np.linspace(-10, 10, 10)
+    x = np.linspace(-4, 4, 20)
     y = f(x)
     return list(x), list(y)
 
 # Hàm gốc
 def f(x):
-    return 2*x**4 - 5*x**2 + 3*x - 7
+    return x**3 - 3*x**2 + 2
