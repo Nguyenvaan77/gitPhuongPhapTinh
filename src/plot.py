@@ -29,26 +29,34 @@ def plot_spline(x_data_points, y_data_points, coeff_a, coeff_b, coeff_c, coeff_d
     ax = fig.add_subplot(111)
 
     if not x_data_points.size or not y_data_points.size:
-        ax.set_title("Không có dữ liệu để vẽ")
+        ax.set_title("Không có dữ liệu điểm nút để vẽ spline")
         return fig
 
+    # Vẽ Đồ thị Gốc (nếu có dữ liệu)
+    if x_original_dense is not None and y_original_dense is not None:
+        ax.plot(x_original_dense, y_original_dense, label=original_func_label, color='green', linestyle='--', linewidth=1.5, zorder=1)
+
+    # Tạo các điểm x dày đặc để vẽ đường spline mượt mà
     x_min_val = np.min(x_data_points)
     x_max_val = np.max(x_data_points)
-    x_dense = np.linspace(x_min_val, x_max_val, 500)
+    x_dense_spline_plot = np.linspace(x_min_val, x_max_val, 500)
 
-    y_dense_spline = []
-    for xi in x_dense:
+    y_dense_spline_plot = []
+    for xi in x_dense_spline_plot:
         val = eval_spline(x_data_points, coeff_a, coeff_b, coeff_c, coeff_d, xi)
-        y_dense_spline.append(val)
+        y_dense_spline_plot.append(val)
 
-    ax.plot(x_dense, y_dense_spline, label="Spline Curve", color='blue', zorder=2)
-    ax.plot(x_data_points, y_data_points, 'o', label="Data Points", color='red', markersize=5, zorder=3)
+    # Vẽ đường spline
+    ax.plot(x_dense_spline_plot, y_dense_spline_plot, label="Đường Spline nội suy", color='blue', zorder=2)
+
+    # Vẽ các điểm dữ liệu gốc (điểm nút)
+    ax.plot(x_data_points, y_data_points, 'o', label="Điểm nút dữ liệu", color='red', markersize=6, zorder=3)
 
     ax.set_title(title)
     ax.set_xlabel("x")
     ax.set_ylabel("y")
     ax.grid(True, linestyle='--', alpha=0.7)
-    ax.legend()
+    ax.legend() # Hiển thị chú giải cho các đường
 
     try:
         fig.tight_layout()
