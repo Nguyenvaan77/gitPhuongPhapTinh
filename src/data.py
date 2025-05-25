@@ -87,3 +87,19 @@ def generate_data(expr_str, n, a_val, b_val, aeval):
         y_points.append(result)
 
     return x_points, np.array(y_points)
+    np.random.seed(42)
+    x = sorted(np.random.uniform(0, 1000, n))
+    y = np.random.uniform(-1000, 1000, n)
+    return list(x), list(y)
+
+# Lấy giữ liệu mẫu từ hàm gốc
+def get_f_data():
+    f = lambda x: 2*x**4 - 5*x**2 + 3*x - 7
+    # Lấy 10 điểm từ -10 đến 10
+    x = np.linspace(-10, 10, 10)
+    y = f(x)
+    return list(x), list(y)
+
+# Hàm gốc
+def f(x):
+    return 2*x**4 - 5*x**2 + 3*x - 7
